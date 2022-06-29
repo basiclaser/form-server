@@ -1,19 +1,29 @@
-import express from "express";
+import express, { request } from "express";
 import cors from "cors";
 const PORT = process.env.PORT || 8000;
 const app = express();
 
 //CROSS ORIGIN RESOURCE SHARING
 app.use(cors());
+app.use(express.static("public"));
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
-app.get("/", (req, res) => {
-  console.log("GET / was requested");
-  res.send(`<h1>hi.</h1>`);
+// http://localhost:8000/styles.css
+// http://localhost:8000/companyLogo.png
+// http://localhost:8000/index.html
+// http://localhost:8000/main.js
+
+app.get("/login", (req, res) => {
+  //get = query
+  console.log(req.query);
+  res.send("please check your email to confirm your account");
 });
 
-app.get("/form", (req, res) => {
-  console.log("GET /form was requested");
-  res.send(`<h1>hi.</h1>`);
+app.post("/login", (req, res) => {
+  //post = body
+  console.log(req.body);
+  res.send("please check your email to confirm your account");
 });
 
 app.listen(PORT, () =>

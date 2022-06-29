@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- GET -->
+    <!-- everything after ? 
+    in a URL is "query parameters"
+     -->
+
+    <!-- POST -->
+    <!-- doesnt put data in url, attaches form data to "request body"  -->
+
+    <h1>learning about forms</h1>
+    <h2>traditional form (noJS) with GET</h2>
+    <form action="/login" method="get">
+      <input name="email" type="text" placeholder="email" />
+      <input name="password" type="text" placeholder="password" />
+      <button>submit</button>
+    </form>
+
+    <h2>traditional form (noJS) with POST</h2>
+    <form action="/login" method="post">
+      <input name="email" type="text" placeholder="email" />
+      <input name="password" type="text" placeholder="password" />
+      <button>submit</button>
+    </form>
+
+    <h2>form that sends data from javascript</h2>
+    <form onSubmit="handleFormSubmit(event)">
+      <input id="email" name="email" type="text" placeholder="email" />
+      <input id="password" name="password" type="text" placeholder="password" />
+      <button>submit</button>
+    </form>
+  </body>
+  <script>
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      formData = new FormData(event.target);
+
+      var formAsAnObject = {};
+      formData.forEach(function (value, key) {
+        formAsAnObject[key] = value;
+      });
+
+      console.log(formAsAnObject);
+
+      fetch("/login", {
+        method: "post",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formAsAnObject),
+      })
+        .then((res) => res.text())
+        .then((t) => console.log(t))
+        .catch((e) => console.error(e));
+    }
+  </script>
+</html>
