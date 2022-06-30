@@ -6,13 +6,13 @@ const app = express();
 //CROSS ORIGIN RESOURCE SHARING
 app.use(cors());
 app.use(express.static("public"));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-
+// STATIC "PUBLIC" FOLDER DEALS WITH REQUESTS LIKE THIS
 // http://localhost:8000/styles.css
 // http://localhost:8000/companyLogo.png
 // http://localhost:8000/index.html
 // http://localhost:8000/main.js
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 
 app.get("/login", (req, res) => {
   //get = query

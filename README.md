@@ -1,6 +1,6 @@
 # form-server
 
-npm install 
+## to run
 
-
+npm install
 npm run dev
